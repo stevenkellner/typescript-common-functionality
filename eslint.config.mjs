@@ -106,6 +106,20 @@ export default [
             '@typescript-eslint/no-use-before-define': 'off',
             '@stylistic/function-call-argument-newline': ['error', 'consistent'],
             '@stylistic/array-element-newline': ['error', 'consistent'],
+            '@stylistic/comma-dangle': ['error', 'never'],
+            '@stylistic/padded-blocks': 'off',
+            '@stylistic/function-paren-newline': ['error', 'consistent'],
+            '@typescript-eslint/consistent-type-definitions': 'off',
+            '@stylistic/nonblock-statement-body-position': ['error', 'below'],
+            '@typescript-eslint/no-unsafe-assignment': 'off',
+            '@typescript-eslint/no-unsafe-member-access': 'off',
+            '@typescript-eslint/no-unsafe-call': 'off',
+            '@typescript-eslint/no-unsafe-argument': 'off',
+            '@typescript-eslint/max-params': 'off',
+            '@typescript-eslint/init-declarations': 'off',
+            'id-length': 'off',
+            '@typescript-eslint/no-confusing-void-expression': 'off',
+            'no-inline-comments': 'off'
         }
     }
 ];
