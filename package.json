@@ -1,10 +1,11 @@
 {
     "name": "@stevenkellner/typescript-common-functionality",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Common Typescript functionality that I use regularly",
     "author": "Steven Kellner",
     "license": "MIT",
     "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "scripts": {
         "build": "tsc",
         "lint": "eslint .",
