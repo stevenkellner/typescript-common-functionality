@@ -51,8 +51,10 @@ describe('UtcDate', () => {
 
     describe('encoded', () => {
         it('should return an encoded string representing the UtcDate', () => {
-            const date = new UtcDate(2023, 10, 5, 14, 30);
-            expect(date.encoded).toBeEqual('2023-10-05-14-30');
+            let date = new UtcDate(2023, 10, 12, 14, 30);
+            expect(date.encoded).toBeEqual('2023-10-12-14-30');
+            date = new UtcDate(2023, 1, 1, 1, 1);
+            expect(date.encoded).toBeEqual('2023-01-01-01-01');
         });
     });
 
@@ -111,6 +113,16 @@ describe('UtcDate', () => {
             expect(newDate.day).toBeEqual(5);
             expect(newDate.hour).toBeEqual(14);
             expect(newDate.minute).toBeEqual(30);
+            const newDate2 = date.setted({
+                day: 6,
+                hour: 15,
+                minute: 31
+            });
+            expect(newDate2.year).toBeEqual(2023);
+            expect(newDate2.month).toBeEqual(10);
+            expect(newDate2.day).toBeEqual(6);
+            expect(newDate2.hour).toBeEqual(15);
+            expect(newDate2.minute).toBeEqual(31);
         });
     });
 
@@ -129,6 +141,12 @@ describe('UtcDate', () => {
             expect(newDate.day).toBeEqual(8);
             expect(newDate.hour).toBeEqual(18);
             expect(newDate.minute).toBeEqual(35);
+            const newDate2 = date.advanced({});
+            expect(newDate2.year).toBeEqual(2023);
+            expect(newDate2.month).toBeEqual(10);
+            expect(newDate2.day).toBeEqual(5);
+            expect(newDate2.hour).toBeEqual(14);
+            expect(newDate2.minute).toBeEqual(30);
         });
     });
 
@@ -139,6 +157,41 @@ describe('UtcDate', () => {
             expect(date1.compare(date2)).toBeEqual('less');
             expect(date2.compare(date1)).toBeEqual('greater');
             expect(date1.compare(date1)).toBeEqual('equal');
+        });
+
+        it('should compare by year', () => {
+            const date1 = new UtcDate(2023, 10, 5, 14, 30);
+            const date2 = new UtcDate(2024, 10, 5, 14, 30);
+            expect(date1.compare(date2)).toBeEqual('less');
+            expect(date2.compare(date1)).toBeEqual('greater');
+        });
+
+        it('should compare by month', () => {
+            const date1 = new UtcDate(2023, 10, 5, 14, 30);
+            const date2 = new UtcDate(2023, 11, 5, 14, 30);
+            expect(date1.compare(date2)).toBeEqual('less');
+            expect(date2.compare(date1)).toBeEqual('greater');
+        });
+
+        it('should compare by day', () => {
+            const date1 = new UtcDate(2023, 10, 5, 14, 30);
+            const date2 = new UtcDate(2023, 10, 6, 14, 30);
+            expect(date1.compare(date2)).toBeEqual('less');
+            expect(date2.compare(date1)).toBeEqual('greater');
+        });
+
+        it('should compare by hour', () => {
+            const date1 = new UtcDate(2023, 10, 5, 14, 30);
+            const date2 = new UtcDate(2023, 10, 5, 15, 30);
+            expect(date1.compare(date2)).toBeEqual('less');
+            expect(date2.compare(date1)).toBeEqual('greater');
+        });
+
+        it('should compare by minute', () => {
+            const date1 = new UtcDate(2023, 10, 5, 14, 30);
+            const date2 = new UtcDate(2023, 10, 5, 14, 31);
+            expect(date1.compare(date2)).toBeEqual('less');
+            expect(date2.compare(date1)).toBeEqual('greater');
         });
     });
 

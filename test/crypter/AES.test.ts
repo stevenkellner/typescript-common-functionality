@@ -102,8 +102,7 @@ describe('AES', () => {
     });
 
     it('should handle empty data correctly', () => {
-        const modeOfOperation = new CBCMode();
-        const crypter = new AES(key, modeOfOperation, padding);
+        const crypter = new AES(key);
         const data = new Uint8Array();
         const encryptedData = crypter.encrypt(data);
         const decryptedData = crypter.decrypt(encryptedData);
@@ -111,23 +110,20 @@ describe('AES', () => {
     });
 
     it('should handle undefined value correctly', () => {
-        const modeOfOperation = new CBCMode();
-        const crypter = new AES(key, modeOfOperation, padding);
+        const crypter = new AES(key);
         const encryptedData = crypter.encodeAndEncrypt(undefined);
         const decryptedValue = crypter.decryptAndDecode(encryptedData);
         expect(decryptedValue).toBeUndefined();
     });
 
     it('should throw an error if key length is invalid', () => {
-        const modeOfOperation = new CBCMode();
-        expect(() => new AES(new Uint8Array(10), modeOfOperation, padding))
+        expect(() => new AES(new Uint8Array(10)))
             .toThrowError(Error)
             .toHaveMessage('AES key must be 16, 24 or 32 bytes long.');
     });
 
     it('should encode and encrypt data correctly', () => {
-        const modeOfOperation = new CBCMode();
-        const crypter = new AES(key, modeOfOperation, padding);
+        const crypter = new AES(key);
         const value = { test: 'value' };
         const encryptedData = crypter.encodeAndEncrypt(value);
         const decryptedValue = crypter.decryptAndDecode(encryptedData);

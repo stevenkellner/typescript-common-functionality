@@ -7,6 +7,7 @@ export class ECBMode implements IModeOfOperation {
     public readonly decryption = new ECBMode.ECBDecryptionMode();
 }
 
+// istanbul ignore next
 export namespace ECBMode {
 
     export class ECBEncryptionMode implements IEncryptionModeOfOperation {

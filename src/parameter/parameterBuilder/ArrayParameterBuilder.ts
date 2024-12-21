@@ -14,7 +14,7 @@ export class ArrayParameterBuilder<TypeName extends ValidParameterTypeName, T> i
         if (value === null || !Array.isArray(value))
             throw new Error('Value is not an array.');
         if (this.length !== null && value.length !== this.length)
-            throw new Error(`Array does not have the expectd length ${this.length}.`);
+            throw new Error(`Array does not have the expected length ${this.length}.`);
         return value.map((element: unknown, index) => {
             if (!(this.builder.expectedTypes as Set<string>).has(typeof element))
                 throw new Error(`Array element ${index} has an invalid type: ${typeof element}.`);

@@ -47,7 +47,7 @@ describe('ArrayParameterBuilder', () => {
         builder = new ArrayParameterBuilder(instance(mockedElementBuilder), 2);
         expect(() => builder.build([1]))
             .toThrowError(Error)
-            .toHaveMessage('Array does not have the expectd length 2.');
+            .toHaveMessage('Array does not have the expected length 2.');
     });
 
     it('build array with correct length', () => {
@@ -69,5 +69,12 @@ describe('ArrayParameterBuilder', () => {
         expect(() => builder.build(123 as any))
             .toThrowError(Error)
             .toHaveMessage('Value is not an array.');
+    });
+
+    it('build array with incorrect element type', () => {
+        builder = new ArrayParameterBuilder(instance(mockedElementBuilder), 1);
+        expect(() => builder.build([true]))
+            .toThrowError(Error)
+            .toHaveMessage('Array element 0 has an invalid type: boolean.');
     });
 });

@@ -9,6 +9,7 @@ export class CBCMode implements IModeOfOperation {
     public readonly decryption = new CBCMode.CBCDecryptionMode();
 }
 
+// istanbul ignore next
 export namespace CBCMode {
 
     export class CBCEncryptionMode implements IEncryptionModeOfOperation {

@@ -9,6 +9,7 @@ export class OFBMode implements IModeOfOperation {
     public readonly decryption = new OFBMode.ECBDecryptionMode();
 }
 
+// istanbul ignore next
 export namespace OFBMode {
 
     export class OFBEncryptionMode implements IEncryptionModeOfOperation {

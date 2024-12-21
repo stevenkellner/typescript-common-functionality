@@ -9,6 +9,7 @@ export class CTRMode implements IModeOfOperation {
     public readonly decryption = new CTRMode.CTRDecryptionMode();
 }
 
+// istanbul ignore next
 export namespace CTRMode {
 
     export function incrementCounter(counter: Uint8Array): void {

@@ -1,6 +1,6 @@
 {
     "name": "@stevenkellner/typescript-common-functionality",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Common Typescript functionality that I use regularly",
     "author": "Steven Kellner",
     "license": "MIT",
@@ -9,11 +9,14 @@
         "build": "tsc",
         "lint": "eslint .",
         "test": "mocha",
+        "test:coverage": "nyc npm run test",
+        "coverage:report": "npx http-server -o ./coverage",
         "prepublishOnly": "npm run build && npm run lint && npm run test"
     },
     "devDependencies": {
         "@assertive-ts/core": "^2.1.0",
         "@eslint/js": "^9.14.0",
+        "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@stylistic/eslint-plugin": "^2.10.1",
         "@types/mocha": "^10.0.9",
         "@types/node": "^22.8.6",
@@ -21,7 +24,9 @@
         "@typescript-eslint/parser": "^8.12.2",
         "eslint": "^9.14.0",
         "globals": "^15.11.0",
+        "http-server": "^14.1.1",
         "mocha": "^10.8.2",
+        "nyc": "^17.1.0",
         "ts-mockito": "^2.6.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.3",

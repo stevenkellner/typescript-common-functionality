@@ -18,6 +18,11 @@ describe('Result', () => {
             const result = Result.success(42).mapError(() => 'error');
             expect(result.get()).toBeEqual(42);
         });
+
+        it('should get value or error', () => {
+            const result = Result.success(42);
+            expect(result.valueOrError).toBeEqual(42);
+        });
     });
 
     describe('Failure', () => {
@@ -41,6 +46,12 @@ describe('Result', () => {
             expect(() => result.get())
                 .toThrowError(Error)
                 .toHaveMessage('error');
+        });
+
+        it('should get value or error', () => {
+            const error = new Error('error');
+            const result = Result.failure(error);
+            expect(result.valueOrError).toBeEqual(error);
         });
     });
 
@@ -66,6 +77,9 @@ describe('Result', () => {
         });
 
         it('should throw an error for an invalid object', () => {
+            expect(() => Result.from(undefined))
+                .toThrowError(Error)
+                .toHaveMessage('Expected an object');
             expect(() => Result.from({}))
                 .toThrowError(Error)
                 .toHaveMessage('Expected a state property');

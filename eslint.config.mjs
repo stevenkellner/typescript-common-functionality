@@ -14,7 +14,10 @@ export default [
             "lib/*",
             "lib/**/*",
             "eslint.config.mjs",
-            ".mocharc.js"
+            ".mocharc.js",
+            "nyc.config.js",
+            "coverage/*",
+            "coverage/**/*",
         ]
     },
     {
