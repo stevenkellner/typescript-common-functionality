@@ -1,12 +1,12 @@
 import type { ITypeBuilder } from './ITypeBuilder';
 
-export class TypeBuilder<Raw, T, Context = never> implements ITypeBuilder<Raw, T, Context> {
+export class TypeBuilder<Raw, T> implements ITypeBuilder<Raw, T> {
 
     public constructor(
-        public readonly _build: (value: Raw, context?: Context) => T
+        public readonly _build: (value: Raw) => T
     ) {}
 
-    public build(value: Raw, context?: Context): T {
-        return this._build(value, context);
+    public build(value: Raw): T {
+        return this._build(value);
     }
 }

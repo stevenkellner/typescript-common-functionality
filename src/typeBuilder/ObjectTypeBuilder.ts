@@ -9,17 +9,17 @@ type RawObjectType<T extends ObjectType> = {
     [K in keyof T]: unknown
 };
 
-type BuildersType<T extends ObjectType, Raw extends RawObjectType<T>, Context> = {
-    [K in keyof T]: ITypeBuilder<Raw[K], T[K], Context>
+type BuildersType<T extends ObjectType, Raw extends RawObjectType<T>> = {
+    [K in keyof T]: ITypeBuilder<Raw[K], T[K]>
 };
 
-export class ObjectTypeBuilder<Raw extends RawObjectType<T>, T extends ObjectType, Context = never> implements ITypeBuilder<Raw, T, Context> {
+export class ObjectTypeBuilder<Raw extends RawObjectType<T>, T extends ObjectType = never> implements ITypeBuilder<Raw, T> {
 
     public constructor(
-        private readonly builders: BuildersType<T, Raw, Context>
+        private readonly builders: BuildersType<T, Raw>
     ) {}
 
-    public build(value: Raw, context?: Context): T {
-        return mapRecord(this.builders, (builder, key) => builder.build(value[key], context)) as T;
+    public build(value: Raw): T {
+        return mapRecord(this.builders, (builder, key) => builder.build(value[key])) as T;
     }
 }

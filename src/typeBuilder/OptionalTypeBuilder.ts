@@ -1,14 +1,14 @@
 import type { ITypeBuilder } from './ITypeBuilder';
 
-export class OptionalTypeBuilder<Raw, T, Context = never> implements ITypeBuilder<Raw | null, T | null, Context> {
+export class OptionalTypeBuilder<Raw, T> implements ITypeBuilder<Raw | null, T | null> {
 
     public constructor(
-        private readonly builder: ITypeBuilder<Raw, T, Context>
+        private readonly builder: ITypeBuilder<Raw, T>
     ) {}
 
-    public build(value: Raw | null, context?: Context): T | null {
+    public build(value: Raw | null): T | null {
         if (value === null)
             return null;
-        return this.builder.build(value, context);
+        return this.builder.build(value);
     }
 }

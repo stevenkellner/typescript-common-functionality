@@ -29,14 +29,14 @@ export namespace Tagged {
     export type TagOf<T extends Tagged<any, any>> = T extends Tagged<any, infer Tag> ? Tag : never;
 }
 
-export class TaggedTypeBuilder<Raw, T extends Tagged<any, any>, Context = never> implements ITypeBuilder<Raw, T, Context> {
+export class TaggedTypeBuilder<Raw, T extends Tagged<any, any>> implements ITypeBuilder<Raw, T> {
 
     public constructor(
         private readonly tag: Tagged.TagOf<T>,
-        private readonly builder: ITypeBuilder<Raw, Tagged.TypeOf<T>, Context>
+        private readonly builder: ITypeBuilder<Raw, Tagged.TypeOf<T>>
     ) { }
 
-    public build(value: Raw, context?: Context): T {
-        return new Tagged(this.builder.build(value, context), this.tag) as T;
+    public build(value: Raw): T {
+        return new Tagged(this.builder.build(value), this.tag) as T;
     }
 }

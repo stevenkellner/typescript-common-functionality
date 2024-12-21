@@ -19,11 +19,11 @@ describe('ObjectTypeBuilder', () => {
         mockedTypeBuilder1 = mock<ITypeBuilder<number, number>>();
         mockedTypeBuilder2 = mock<ITypeBuilder<string, string>>();
         mockedTypeBuilder3 = mock<ITypeBuilder<boolean, boolean>>();
-        when(mockedTypeBuilder1.build(anything(), undefined))
+        when(mockedTypeBuilder1.build(anything()))
             .thenCall((value: number) => value + 1);
-        when(mockedTypeBuilder2.build(anything(), undefined))
+        when(mockedTypeBuilder2.build(anything()))
             .thenCall((value: string) => `${value}test`);
-        when(mockedTypeBuilder3.build(anything(), undefined))
+        when(mockedTypeBuilder3.build(anything()))
             .thenCall((value: boolean) => !value);
         const typeBuilder1 = instance(mockedTypeBuilder1);
         const typeBuilder2 = instance(mockedTypeBuilder2);
@@ -51,11 +51,11 @@ describe('ObjectTypeBuilder', () => {
             c: true
         });
 
-        verify(mockedTypeBuilder1.build(0, undefined)).once();
-        verify(mockedTypeBuilder2.build('', undefined)).once();
-        verify(mockedTypeBuilder3.build(false, undefined)).once();
-        verify(mockedTypeBuilder1.build(anything(), undefined)).once();
-        verify(mockedTypeBuilder2.build(anything(), undefined)).once();
-        verify(mockedTypeBuilder3.build(anything(), undefined)).once();
+        verify(mockedTypeBuilder1.build(0)).once();
+        verify(mockedTypeBuilder2.build('')).once();
+        verify(mockedTypeBuilder3.build(false)).once();
+        verify(mockedTypeBuilder1.build(anything())).once();
+        verify(mockedTypeBuilder2.build(anything())).once();
+        verify(mockedTypeBuilder3.build(anything())).once();
     });
 });

@@ -119,7 +119,8 @@ export default [
             '@typescript-eslint/init-declarations': 'off',
             'id-length': 'off',
             '@typescript-eslint/no-confusing-void-expression': 'off',
-            'no-inline-comments': 'off'
+            'no-inline-comments': 'off',
+            'func-style': 'off'
         }
     }
 ];

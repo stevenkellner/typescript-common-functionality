@@ -9,7 +9,7 @@ describe('OptionalTypeBuilder', () => {
 
     before(() => {
         mockedElementBuilder = mock<ITypeBuilder<number, number>>();
-        when(mockedElementBuilder.build(anything(), undefined))
+        when(mockedElementBuilder.build(anything()))
             .thenCall((value: number) => value + 1);
         const elementBuilder = instance(mockedElementBuilder);
         builder = new OptionalTypeBuilder(elementBuilder);
@@ -22,13 +22,13 @@ describe('OptionalTypeBuilder', () => {
     it('build with null value', () => {
         expect(builder.build(null)).toBeNull();
 
-        verify(mockedElementBuilder.build(anything(), undefined)).never();
+        verify(mockedElementBuilder.build(anything())).never();
     });
 
     it('build with non-null value', () => {
         expect(builder.build(1)).toBeEqual(2);
 
-        verify(mockedElementBuilder.build(1, undefined)).once();
-        verify(mockedElementBuilder.build(anything(), undefined)).once();
+        verify(mockedElementBuilder.build(1)).once();
+        verify(mockedElementBuilder.build(anything())).once();
     });
 });

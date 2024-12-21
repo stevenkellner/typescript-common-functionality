@@ -1,6 +1,8 @@
 import { expect } from '@assertive-ts/core';
-import { Tagged } from '../../src/types/Tagged';
+import { Tagged, TaggedTypeBuilder } from '../../src/types/Tagged';
 import { Guid } from '../../src/types/Guid';
+import type { ITypeBuilder } from '../../src';
+import { anything, instance, mock, when, verify } from 'ts-mockito';
 
 describe('Tagged', () => {
     describe('constructor', () => {
@@ -45,5 +47,26 @@ describe('Tagged', () => {
             const tagged = new Tagged(value, tag);
             expect(tagged.guidString).toBeUndefined();
         });
+    });
+});
+
+describe('TaggedTypeBuilder', () => {
+
+    let mockedValueBuilder: ITypeBuilder<number, number>;
+    let builder: TaggedTypeBuilder<number, Tagged<number, 'test-tag'>>;
+
+    before(() => {
+        mockedValueBuilder = mock<ITypeBuilder<number, number>>();
+        when(mockedValueBuilder.build(anything()))
+            .thenCall((value: number) => value + 1);
+        const valueBuilder = instance(mockedValueBuilder);
+        builder = new TaggedTypeBuilder('test-tag', valueBuilder);
+    });
+
+    it('should build a Tagged instance with the given value and tag', () => {
+        expect(builder.build(42)).toBeEqual(new Tagged(43, 'test-tag'));
+
+        verify(mockedValueBuilder.build(42)).once();
+        verify(mockedValueBuilder.build(anything())).once();
     });
 });

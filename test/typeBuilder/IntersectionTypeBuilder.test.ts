@@ -21,12 +21,12 @@ describe('IntersectionTypeBuilder', () => {
     before(() => {
         mockedType1Builder = mock<ITypeBuilder<T1, T1>>();
         mockedType2Builder = mock<ITypeBuilder<T2, T2>>();
-        when(mockedType1Builder.build(anything(), undefined))
+        when(mockedType1Builder.build(anything()))
             .thenCall((value: T1) => ({
                 v1: value.v1,
                 v2: value.v2
             }));
-        when(mockedType2Builder.build(anything(), undefined))
+        when(mockedType2Builder.build(anything()))
             .thenCall((value: T2) => ({
                 v1: value.v1 + 1,
                 v3: value.v3
@@ -52,8 +52,8 @@ describe('IntersectionTypeBuilder', () => {
             v3: null
         });
 
-        verify(mockedType1Builder.build(anything(), undefined)).once();
-        verify(mockedType2Builder.build(anything(), undefined)).once();
-        verify(mockedType2Builder.build(anything(), undefined)).calledAfter(mockedType1Builder.build(anything(), undefined));
+        verify(mockedType1Builder.build(anything())).once();
+        verify(mockedType2Builder.build(anything())).once();
+        verify(mockedType2Builder.build(anything())).calledAfter(mockedType1Builder.build(anything()));
     });
 });

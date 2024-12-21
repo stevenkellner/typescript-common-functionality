@@ -1,4 +1,4 @@
-export interface ITypeBuilder<Raw, T, Context = never> {
+export interface ITypeBuilder<Raw, T> {
 
-    build(value: Raw, context?: Context): T;
+    build(value: Raw): T;
 }

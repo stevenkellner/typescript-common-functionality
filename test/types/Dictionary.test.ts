@@ -94,7 +94,7 @@ describe('DictionaryTypeBuilder', () => {
 
     before(() => {
         mockedTypeBuilder = mock<ITypeBuilder<number, number>>();
-        when(mockedTypeBuilder.build(anything(), undefined))
+        when(mockedTypeBuilder.build(anything()))
             .thenCall((value: number) => value + 1);
         const typeBuilder = instance(mockedTypeBuilder);
         builder = new DictionaryTypeBuilder(typeBuilder);
@@ -112,8 +112,8 @@ describe('DictionaryTypeBuilder', () => {
         expect(dictionary.get('a')).toBeEqual(2);
         expect(dictionary.get('b')).toBeEqual(3);
 
-        verify(mockedTypeBuilder.build(1, undefined)).once();
-        verify(mockedTypeBuilder.build(2, undefined)).once();
-        verify(mockedTypeBuilder.build(anything(), undefined)).twice();
+        verify(mockedTypeBuilder.build(1)).once();
+        verify(mockedTypeBuilder.build(2)).once();
+        verify(mockedTypeBuilder.build(anything())).twice();
     });
 });
