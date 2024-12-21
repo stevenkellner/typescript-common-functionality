@@ -1,5 +1,5 @@
 {
-    "name": "typescript-common-functionality",
+    "name": "@stevenkellner/typescript-common-functionality",
     "version": "1.0.0",
     "description": "Common typescript functionallity, I use regularly",
     "author": "Steven Kellner",
@@ -27,6 +27,7 @@
         "typescript-eslint": "^8.12.2"
     },
     "dependencies": {
+        "aes-ts": "^0.0.0-alpha.0",
         "tslib": "^2.8.1",
         "uuid": "^11.0.2"
     }
