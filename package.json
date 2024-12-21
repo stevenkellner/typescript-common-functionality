@@ -1,14 +1,15 @@
 {
     "name": "@stevenkellner/typescript-common-functionality",
-    "version": "1.0.0",
-    "description": "Common typescript functionallity, I use regularly",
+    "version": "1.0.1",
+    "description": "Common Typescript functionality that I use regularly",
     "author": "Steven Kellner",
     "license": "MIT",
     "main": "lib/index.js",
     "scripts": {
         "build": "tsc",
         "lint": "eslint .",
-        "test": "mocha"
+        "test": "mocha",
+        "prepublishOnly": "npm run build && npm run lint && npm run test"
     },
     "devDependencies": {
         "@assertive-ts/core": "^2.1.0",
