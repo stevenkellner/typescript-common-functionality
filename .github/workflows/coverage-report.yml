@@ -3,7 +3,7 @@ name: Run Test with Coverage Report and upload it to Github Pages
 on:
   push:
     branches:
-     - '!([0-9]+.[0-9]+.[0-9]+)'
+     - '!+([0-9]).+([0-9]).+([0-9])*'
   pull_request:
     branches:
       - '**'
