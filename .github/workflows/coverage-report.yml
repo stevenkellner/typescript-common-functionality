@@ -3,14 +3,13 @@ name: Run Test with Coverage Report and upload it to Github Pages
 on:
   push:
     branches:
-      - '**'
+     - '![0-9]+.[0-9]+.[0-9]+'
   pull_request:
     branches:
       - '**'
 
 jobs:
   test-coverage:
-    if: ${{ !contains(github.ref_name, 'v*') }}
     name: "Run Test with Coverage Report"
     runs-on: ubuntu-latest
     steps:

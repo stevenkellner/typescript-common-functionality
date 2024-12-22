@@ -3,14 +3,13 @@ name: Build, test and lint Node.js Package
 on:
   push:
     branches:
-      - '**'
+     - '![0-9]+.[0-9]+.[0-9]+'
   pull_request:
     branches:
       - '**'
 
 jobs:
   build-test-lint:
-    if: ${{ !contains(github.ref_name, 'v*') }}
     name: "Build, Test and Lint Node.js Package"
     runs-on: ubuntu-latest
     steps:
