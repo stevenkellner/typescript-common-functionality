@@ -15,11 +15,13 @@ describe('Flattable', () => {
         });
 
         it('should return primitive values as is', () => {
-            expect(Flattable.flatten(1)).toBeEqual(1);
-            expect(Flattable.flatten('string')).toBeEqual('string');
-            expect(Flattable.flatten(true)).toBeEqual(true);
-            expect(Flattable.flatten(null)).toBeEqual(null);
             expect(Flattable.flatten(undefined)).toBeEqual(undefined);
+            expect(Flattable.flatten(null)).toBeEqual(null);
+            expect(Flattable.flatten(true)).toBeEqual(true);
+            expect(Flattable.flatten(1)).toBeEqual(1);
+            expect(Flattable.flatten(BigInt(1))).toBeEqual(BigInt(1));
+            expect(Flattable.flatten('string')).toBeEqual('string');
+            expect(Flattable.flatten(new Uint8Array([1, 2, 3]))).toBeEqual(new Uint8Array([1, 2, 3]));
         });
 
         it('should flatten arrays of Flattable objects', () => {

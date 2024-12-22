@@ -8,11 +8,13 @@
     "types": "lib/index.d.ts",
     "scripts": {
         "build": "tsc",
+        "rebuild": "tsc --build --force",
         "lint": "eslint .",
         "test": "mocha",
         "test:coverage": "nyc npm run test",
         "coverage:report": "npx http-server -o ./coverage",
-        "release": "npm run build && npm run test && npm run lint && npm version patch && git push --follow-tags"
+        "upgrade": "ncu --upgrade --install always",
+        "release": "npm run rebuild && npm run test && npm run lint && npm version patch && git push --follow-tags"
     },
     "devDependencies": {
         "@assertive-ts/core": "^2.1.0",
