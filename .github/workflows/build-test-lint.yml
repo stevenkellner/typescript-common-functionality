@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          if [[ ${{ github.ref_name }} =~ ^(?!\d+\.\d+\.\d+).*$ ]];
+          if [[ ${{ github.ref_name }} =~ ^\d+\.\d+\.\d+$ ]];
           then
-            echo "This is not a release branch";
+            echo "${{ github.ref_name }} is a release branch";
           else
-            echo "This is a release branch";
+            echo "${{ github.ref_name }} is not a release branch";
           fi
 
   build-test-lint:
