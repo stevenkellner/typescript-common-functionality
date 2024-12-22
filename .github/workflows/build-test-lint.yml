@@ -10,15 +10,9 @@ on:
 
 jobs:
   is-release-commit:
-    runs-on: ubuntu-latest
-    outputs:
-      IS_RELEASE_COMMIT: ${{ steps.is-release-commit.outputs.IS_RELEASE_COMMIT }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: is-release-commit
-        uses: ./.github/workflows/is-release-commit.yml
-        with:
-          commit_message: ${{ github.event.head_commit.message }}
+    uses: ./.github/workflows/is-release-commit.yml
+    with:
+      commit-message: ${{ github.event.head_commit.message }}
 
   build-test-lint:
     name: "Build, Test and Lint Node.js Package"
