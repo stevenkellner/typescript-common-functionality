@@ -8,6 +8,7 @@ This repository contains common Typescript functionality that I use regularly. I
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
+- [Coverage Report](#coverage-report)
 - [License](#license)
 
 ## Installation
@@ -46,6 +47,9 @@ logger.info('ExampleFunction', 'This is an info message');
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request on GitHub.
+
+## Coverage Report
+The coverage report is generated automatically by the CI on each push and pull request. You can view the latest coverage report [here](https://stevenkellner.github.io/typescript-common-functionality/).
 
 ## License
 
