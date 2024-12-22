@@ -14,6 +14,7 @@ jobs:
     outputs:
       IS_RELEASE_COMMIT: ${{ steps.is-release-commit.outputs.IS_RELEASE_COMMIT }}
     steps:
+      - uses: actions/checkout@v4
       - id: is-release-commit
         uses: ./.github/workflows/is-release-commit.yml
         with:
