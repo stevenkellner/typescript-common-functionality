@@ -34,3 +34,4 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run lint
+      - run: echo ${{ jobs.asdf.steps.asdf.outputs.RELEASE_MESSAGE }}
