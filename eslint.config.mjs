@@ -57,6 +57,7 @@ export default [
             'multiline-comment-style': 'off',
             '@typescript-eslint/member-ordering': 'off',
             'max-len': 'off',
+            '@typescript-eslint/no-unsafe-type-assertion': 'off',
             'quote-props': ['error', 'consistent-as-needed'],
             'object-property-newline': 'off',
             'sort-keys': 'off',
