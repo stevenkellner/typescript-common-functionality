@@ -11,7 +11,8 @@
         "lint": "eslint .",
         "test": "mocha",
         "test:coverage": "nyc npm run test",
-        "coverage:report": "npx http-server -o ./coverage"
+        "coverage:report": "npx http-server -o ./coverage",
+        "publish": "npm version patch && git push && npm publish --access public"
     },
     "devDependencies": {
         "@assertive-ts/core": "^2.1.0",
