@@ -12,13 +12,15 @@ jobs:
   asdf:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - id: asdf
+        run: |
           if [[ "${{ github.event.head_commit.message }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]];
           then
-            echo "${{ github.event.head_commit.message }} is a release branch";
+            echo "RELEASE_MESSAGE=true" >> "$GITHUB_OUTPUT";
           else
-            echo "${{ github.event.head_commit.message }} is not a release branch";
+            echo "RELEASE_MESSAGE=false" >> "$GITHUB_OUTPUT";
           fi
+      - run: echo "${{ steps.asdf.outputs.RELEASE_MESSAGE }}"
 
   build-test-lint:
     name: "Build, Test and Lint Node.js Package"
