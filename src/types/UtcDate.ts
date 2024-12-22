@@ -16,14 +16,7 @@ export class UtcDate implements Flattable<string> {
         public readonly day: number,
         public readonly hour: number,
         public readonly minute: number,
-        timezone: 'Europe/Berlin' | null = null
-    ) {
-        if (timezone !== null) {
-            const date = new Date(this.year, this.month, this.day, this.hour, this.minute);
-            const offset = date.getUTCHours() - new Date(date.toLocaleString('en-US', { timeZone: timezone })).getUTCHours();
-            this.hour += offset;
-        }
-    }
+    ) {}
 
     public static get now(): UtcDate {
         return UtcDate.fromDate(new Date());
