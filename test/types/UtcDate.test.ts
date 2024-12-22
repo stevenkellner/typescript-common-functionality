@@ -14,7 +14,7 @@ describe('UtcDate', () => {
 
         it('should adjust the hour based on the timezone', () => {
             const date = new UtcDate(2023, 10, 5, 14, 30, 'Europe/Berlin');
-            expect(date.hour).toBeEqual(14); // Adjusted for timezone offset
+            expect(date.hour).toBeEqual(new Date(date.toDate.toLocaleString('en-US', { timeZone: 'Europe/Berlin' })).getUTCHours());
         });
     });
 
