@@ -28,7 +28,7 @@ jobs:
     name: "Build, Test and Lint Node.js Package"
     runs-on: ubuntu-latest
     needs: asdf
-    if: !needs.asdf.outputs.IS_RELEASE_COMMIT
+    if: needs.asdf.outputs.IS_RELEASE_COMMIT == 'false'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
