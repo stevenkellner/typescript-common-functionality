@@ -3,7 +3,7 @@ name: Build, test and lint Node.js Package
 on:
   push:
     branches:
-     - '![0-9]+.[0-9]+.[0-9]+'
+     - '!(0-9]+.[0-9]+.[0-9]+)'
   pull_request:
     branches:
       - '**'
