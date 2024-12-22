@@ -3,12 +3,23 @@ name: Build, test and lint Node.js Package
 on:
   push:
     branches:
-     - !+([0-9]).+([0-9]).+([0-9])*
+     - '**'
   pull_request:
     branches:
       - '**'
 
 jobs:
+  asdf:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [[ ${{ github.ref_name }} =~ ^(?!\d+\.\d+\.\d+).*$ ]];
+          then
+            echo "This is not a release branch";
+          else
+            echo "This is a release branch";
+          fi
+
   build-test-lint:
     name: "Build, Test and Lint Node.js Package"
     runs-on: ubuntu-latest
