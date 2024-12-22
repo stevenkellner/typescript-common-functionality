@@ -18,7 +18,7 @@ jobs:
     name: "Run Test with Coverage Report"
     runs-on: ubuntu-latest
     needs: is-release-commit
-    if: needs.is-release-commit.outputs.IS_RELEASE_COMMIT == false
+    if: needs.is-release-commit.outputs.IS_RELEASE_COMMIT == 'false'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
