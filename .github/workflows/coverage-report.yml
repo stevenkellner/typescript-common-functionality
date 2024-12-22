@@ -9,6 +9,7 @@ on:
       - '**'
 
 jobs:
+  if: "!contains(github.ref_name, 'v*')"
   test-coverage:
     name: "Run Test with Coverage Report"
     runs-on: ubuntu-latest
