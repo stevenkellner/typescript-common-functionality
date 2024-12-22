@@ -1,6 +1,6 @@
 {
     "name": "@stevenkellner/typescript-common-functionality",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Common Typescript functionality that I use regularly",
     "author": "Steven Kellner",
     "license": "MIT",
@@ -11,8 +11,7 @@
         "lint": "eslint .",
         "test": "mocha",
         "test:coverage": "nyc npm run test",
-        "coverage:report": "npx http-server -o ./coverage",
-        "prepublishOnly": "npm run build && npm run lint && npm run test && npm version patch"
+        "coverage:report": "npx http-server -o ./coverage"
     },
     "devDependencies": {
         "@assertive-ts/core": "^2.1.0",
