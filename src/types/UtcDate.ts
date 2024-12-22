@@ -15,7 +15,7 @@ export class UtcDate implements Flattable<string> {
         public readonly month: number,
         public readonly day: number,
         public readonly hour: number,
-        public readonly minute: number,
+        public readonly minute: number
     ) {}
 
     public static get now(): UtcDate {
