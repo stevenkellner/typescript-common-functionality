@@ -9,8 +9,8 @@ on:
       - '**'
 
 jobs:
-  if: "!contains(github.ref_name, 'v*')"
   build-test-lint:
+    if: ${{ !contains(github.ref_name, 'v*') }}
     name: "Build, Test and Lint Node.js Package"
     runs-on: ubuntu-latest
     steps:

@@ -9,8 +9,8 @@ on:
       - '**'
 
 jobs:
-  if: "!contains(github.ref_name, 'v*')"
   test-coverage:
+    if: ${{ !contains(github.ref_name, 'v*') }}
     name: "Run Test with Coverage Report"
     runs-on: ubuntu-latest
     steps:
