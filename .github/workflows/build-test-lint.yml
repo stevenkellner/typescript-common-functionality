@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          if [[ '${{ github.event.head_commit.message }}' =~ ^'\d+\.\d+\.\d+'$ ]];
+          if [[ "${{ github.event.head_commit.message }}"" =~ ^\d+\.\d+\.\d+$ ]];
           then
             echo "${{ github.event.head_commit.message }} is a release branch";
           else
