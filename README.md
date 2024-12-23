@@ -8,7 +8,7 @@ This repository contains common Typescript functionality that I use regularly. I
 - [Usage](#usage)
 - [Features](#features)
 - [Contributing](#contributing)
-- [Coverage Report](#coverage-report)
+- [Continuous Integration](#continuous-integration)
 - [License](#license)
 
 ## Installation
@@ -48,8 +48,21 @@ logger.info('ExampleFunction', 'This is an info message');
 
 Contributions are welcome! Please open an issue or submit a pull request on GitHub.
 
-## Coverage Report
+## Continuous Integration
+### Build, Test and Lint
+[![Build, test and lint Node.js Package](https://github.com/stevenkellner/typescript-common-functionality/actions/workflows/build-test-lint.yml/badge.svg)](https://github.com/stevenkellner/typescript-common-functionality/actions/workflows/build-test-lint.yml)
+
+On each push and pull request, the CI runs the build, test and lint script to verify the package.
+
+### Coverage Report
+[![Run Test with Coverage Report and upload it to Github Pages](https://github.com/stevenkellner/typescript-common-functionality/actions/workflows/coverage-report.yml/badge.svg)](https://github.com/stevenkellner/typescript-common-functionality/actions/workflows/coverage-report.yml)
+
 The coverage report is generated automatically by the CI on each push and pull request. You can view the latest coverage report [here](https://stevenkellner.github.io/typescript-common-functionality/).
+
+### Publish to npm
+[![Publish Node.js Package](https://github.com/stevenkellner/typescript-common-functionality/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/stevenkellner/typescript-common-functionality/actions/workflows/npm-publish.yml) 
+
+The library is published automatically as a npm package and a github release is created by the CI on each new release tag. The npm package can be found [here](https://www.npmjs.com/package/@stevenkellner/typescript-common-functionality), you can install it with `npm install @stevenkellner/typescript-common-functionality`.
 
 ## License
 
