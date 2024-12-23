@@ -12,12 +12,10 @@ export default [
     {
         ignores: [
             "lib/*",
-            "lib/**/*",
             "eslint.config.mjs",
             ".mocharc.js",
             "nyc.config.js",
-            "coverage/*",
-            "coverage/**/*",
+            "coverage/*"
         ]
     },
     {
