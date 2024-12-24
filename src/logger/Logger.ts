@@ -82,4 +82,44 @@ export class Logger {
     public notice(functionName: string, descriptionOrDetails?: string | Record<string, unknown>, details?: Record<string, unknown>): void {
         this._log('notice', functionName, descriptionOrDetails, details);
     }
+
+    public warning(functionName: string): void;
+    public warning(functionName: string, description: string): void;
+    public warning(functionName: string, details: Record<string, unknown>): void;
+    public warning(functionName: string, description: string, details: Record<string, unknown>): void;
+    public warning(functionName: string, descriptionOrDetails?: string | Record<string, unknown>, details?: Record<string, unknown>): void {
+        this._log('warning', functionName, descriptionOrDetails, details);
+    }
+
+    public error(functionName: string): void;
+    public error(functionName: string, description: string): void;
+    public error(functionName: string, details: Record<string, unknown>): void;
+    public error(functionName: string, description: string, details: Record<string, unknown>): void;
+    public error(functionName: string, descriptionOrDetails?: string | Record<string, unknown>, details?: Record<string, unknown>): void {
+        this._log('error', functionName, descriptionOrDetails, details);
+    }
+
+    public critical(functionName: string): void;
+    public critical(functionName: string, description: string): void;
+    public critical(functionName: string, details: Record<string, unknown>): void;
+    public critical(functionName: string, description: string, details: Record<string, unknown>): void;
+    public critical(functionName: string, descriptionOrDetails?: string | Record<string, unknown>, details?: Record<string, unknown>): void {
+        this._log('critical', functionName, descriptionOrDetails, details);
+    }
+
+    public alert(functionName: string): void;
+    public alert(functionName: string, description: string): void;
+    public alert(functionName: string, details: Record<string, unknown>): void;
+    public alert(functionName: string, description: string, details: Record<string, unknown>): void;
+    public alert(functionName: string, descriptionOrDetails?: string | Record<string, unknown>, details?: Record<string, unknown>): void {
+        this._log('alert', functionName, descriptionOrDetails, details);
+    }
+
+    public emergency(functionName: string): void;
+    public emergency(functionName: string, description: string): void;
+    public emergency(functionName: string, details: Record<string, unknown>): void;
+    public emergency(functionName: string, description: string, details: Record<string, unknown>): void;
+    public emergency(functionName: string, descriptionOrDetails?: string | Record<string, unknown>, details?: Record<string, unknown>): void {
+        this._log('emergency', functionName, descriptionOrDetails, details);
+    }
 }
