@@ -28,7 +28,10 @@ describe('Result', () => {
         it('should get flatten value', () => {
             const guid = Guid.generate();
             const result = Result.success(guid);
-            expect(result.flatten).toBeEqual(Result.success(guid.guidString));
+            expect(result.flatten).toBeEqual({
+                state: 'success',
+                value: guid.guidString
+            });
         });
     });
 
@@ -64,7 +67,10 @@ describe('Result', () => {
         it('should get flatten error', () => {
             const guid = Guid.generate();
             const result = Result.failure(guid);
-            expect(result.flatten).toBeEqual(Result.failure(guid.guidString));
+            expect(result.flatten).toBeEqual({
+                state: 'failure',
+                error: guid.guidString
+            });
         });
     });
 

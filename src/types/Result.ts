@@ -8,7 +8,17 @@ export namespace Result {
 
     export type Error<R> = R extends Result<unknown, infer E> ? E : never;
 
-    export class Success<T> implements Flattable<Success<Flatten<T>>> {
+    export type FlattenSuccess<T> = {
+        state: 'success';
+        value: Flatten<T>;
+    };
+
+    export type FlattenFailure<E> = {
+        state: 'failure';
+        error: Flatten<E>;
+    };
+
+    export class Success<T> implements Flattable<FlattenSuccess<T>> {
 
         public readonly state = 'success';
 
@@ -34,12 +44,15 @@ export namespace Result {
             return this;
         }
 
-        public get flatten(): Success<Flatten<T>> {
-            return new Success(Flattable.flatten(this.value));
+        public get flatten(): FlattenSuccess<T> {
+            return {
+                state: 'success',
+                value: Flattable.flatten(this.value)
+            };
         }
     }
 
-    export class Failure<E> implements Flattable<Failure<Flatten<E>>> {
+    export class Failure<E> implements Flattable<FlattenFailure<E>> {
 
         public readonly state = 'failure';
 
@@ -66,8 +79,11 @@ export namespace Result {
             return new Result.Failure<E2>(mapper(this.error));
         }
 
-        public get flatten(): Failure<Flatten<E>> {
-            return new Failure(Flattable.flatten(this.error));
+        public get flatten(): FlattenFailure<E> {
+            return {
+                state: 'failure',
+                error: Flattable.flatten(this.error)
+            };
         }
     }
 
