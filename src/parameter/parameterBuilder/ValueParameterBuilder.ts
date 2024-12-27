@@ -11,7 +11,6 @@ export class ValueParameterBuilder<TypeName extends ValidParameterTypeName> impl
         return new Set([this.typeName]);
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     public build(value: RawParameterType<TypeName>): RawParameterType<TypeName> {
         return value;
     }

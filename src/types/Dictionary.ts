@@ -46,13 +46,17 @@ export class Dictionary<Key, T> implements Flattable<Record<string, T>> {
     }
 }
 
-export class DictionaryTypeBuilder<Raw, Key, T> implements ITypeBuilder<Record<string, Raw>, Dictionary<Key, T>> {
+// istanbul ignore next
+export namespace Dictionary {
 
-    public constructor(
-        private readonly builder: ITypeBuilder<Raw, T>
-    ) {}
+    export class TypeBuilder<Raw, Key, T> implements ITypeBuilder<Record<string, Raw>, Dictionary<Key, T>> {
 
-    public build(value: Record<string, Raw>): Dictionary<Key, T> {
-        return new Dictionary(mapRecord(value, value => this.builder.build(value)));
+        public constructor(
+            private readonly builder: ITypeBuilder<Raw, T>
+        ) {}
+
+        public build(value: Record<string, Raw>): Dictionary<Key, T> {
+            return new Dictionary(mapRecord(value, value => this.builder.build(value)));
+        }
     }
 }

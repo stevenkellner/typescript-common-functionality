@@ -1,7 +1,9 @@
+import type { ITypeBuilder } from '../typeBuilder';
 import { Flattable, type Flatten } from './Flattable';
 
 export type Result<T, E> = Result.Success<T> | Result.Failure<E>;
 
+// istanbul ignore next
 export namespace Result {
 
     export type Value<R> = R extends Result<infer T, unknown> ? T : never;
@@ -123,5 +125,19 @@ export namespace Result {
             return failure(value.error as E);
         }
         throw new Error('Expected a state property with value success or failure');
+    }
+
+    export class TypeBuilder<RawT, RawE, T, E> implements ITypeBuilder<Result<RawT, RawE>, Result<T, E>> {
+
+        public constructor(
+            private readonly valueBuilder: ITypeBuilder<RawT, T>,
+            private readonly errorBuilder: ITypeBuilder<RawE, E>
+        ) {}
+
+        public build(value: Result<RawT, RawE>): Result<T, E> {
+            if (Result.isSuccess(value))
+                return new Result.Success(this.valueBuilder.build(value.value));
+            return new Result.Failure(this.errorBuilder.build(value.error));
+        }
     }
 }

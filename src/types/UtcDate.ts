@@ -1,3 +1,4 @@
+import type { ITypeBuilder } from '../typeBuilder';
 import type { Flattable } from '../types/Flattable';
 
 type UtcDateComponents = {
@@ -107,5 +108,16 @@ export class UtcDate implements Flattable<string> {
 
     public get flatten(): string {
         return this.encoded;
+    }
+}
+
+// istanbul ignore next
+export namespace UtcDate {
+
+    export class TypeBuilder implements ITypeBuilder<string, UtcDate> {
+
+        public build(value: string): UtcDate {
+            return UtcDate.decode(value);
+        }
     }
 }

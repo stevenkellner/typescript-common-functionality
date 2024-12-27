@@ -32,4 +32,25 @@ describe('Guid', () => {
             expect(guid.flatten).toBeEqual(guidString);
         });
     });
+
+    describe('TypeBuilder', () => {
+        let builder: Guid.TypeBuilder;
+
+        before(() => {
+            builder = new Guid.TypeBuilder();
+        });
+
+        it('should build a Guid from a valid string', () => {
+            const validGuidString = '123e4567-e89b-42d3-a456-426614174000';
+            const guid = builder.build(validGuidString);
+            expect(guid.guidString).toBeEqual(validGuidString);
+        });
+
+        it('should throw an error for an invalid string', () => {
+            const invalidGuidString = 'invalid-guid-string';
+            expect(() => builder.build(invalidGuidString))
+                .toThrowError(Error)
+                .toHaveMessage('Could not parse Guid, guid string is invalid.');
+        });
+    });
 });

@@ -1,6 +1,6 @@
 import { expect } from '@assertive-ts/core';
 import { Result } from '../../src/types/Result';
-import { Guid } from '../../src';
+import { Guid, TypeBuilder } from '../../src';
 
 describe('Result', () => {
     describe('Success', () => {
@@ -111,6 +111,20 @@ describe('Result', () => {
             expect(() => Result.from({ state: 'failure' }))
                 .toThrowError(Error)
                 .toHaveMessage('Expected an error property');
+        });
+    });
+
+    describe('TypeBuilder', () => {
+        it('should build a success result', () => {
+            const typeBuilder = new Result.TypeBuilder(new TypeBuilder((value: number) => value + 1), new TypeBuilder((error: string) => error.toUpperCase()));
+            const result = typeBuilder.build(Result.success(41));
+            expect(result).toBeEqual(Result.success(42));
+        });
+
+        it('should build a failure result', () => {
+            const typeBuilder = new Result.TypeBuilder(new TypeBuilder((value: number) => value + 1), new TypeBuilder((error: string) => error.toUpperCase()));
+            const result = typeBuilder.build(Result.failure('error'));
+            expect(result).toBeEqual(Result.failure('ERROR'));
         });
     });
 });

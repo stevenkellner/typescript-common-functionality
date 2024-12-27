@@ -1,5 +1,5 @@
 import { expect } from '@assertive-ts/core';
-import { Dictionary, DictionaryTypeBuilder, type ITypeBuilder } from '../../src';
+import { Dictionary, type ITypeBuilder } from '../../src';
 import { anything, instance, mock, resetCalls, verify, when } from 'ts-mockito';
 
 describe('Dictionary', () => {
@@ -87,17 +87,17 @@ describe('Dictionary', () => {
     });
 });
 
-describe('DictionaryTypeBuilder', () => {
+describe('Dictionary.TypeBuilder', () => {
 
     let mockedTypeBuilder: ITypeBuilder<number, number>;
-    let builder: DictionaryTypeBuilder<number, string, number>;
+    let builder: Dictionary.TypeBuilder<number, string, number>;
 
     before(() => {
         mockedTypeBuilder = mock<ITypeBuilder<number, number>>();
         when(mockedTypeBuilder.build(anything()))
             .thenCall((value: number) => value + 1);
         const typeBuilder = instance(mockedTypeBuilder);
-        builder = new DictionaryTypeBuilder(typeBuilder);
+        builder = new Dictionary.TypeBuilder(typeBuilder);
     });
 
     afterEach(() => {

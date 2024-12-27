@@ -196,4 +196,26 @@ describe('UtcDate', () => {
             expect(date.flatten).toBeEqual('2023-10-05-14-30');
         });
     });
+
+    describe('TypeBuilder', () => {
+        it('should build a UtcDate from a valid encoded string', () => {
+            const builder = new UtcDate.TypeBuilder();
+            const date = builder.build('2023-10-05-14-30');
+            expect(date.year).toBeEqual(2023);
+            expect(date.month).toBeEqual(10);
+            expect(date.day).toBeEqual(5);
+            expect(date.hour).toBeEqual(14);
+            expect(date.minute).toBeEqual(30);
+        });
+
+        it('should return a default UtcDate for an invalid encoded string', () => {
+            const builder = new UtcDate.TypeBuilder();
+            const date = builder.build('invalid-date');
+            expect(date.year).toBeEqual(0);
+            expect(date.month).toBeEqual(0);
+            expect(date.day).toBeEqual(0);
+            expect(date.hour).toBeEqual(0);
+            expect(date.minute).toBeEqual(0);
+        });
+    });
 });

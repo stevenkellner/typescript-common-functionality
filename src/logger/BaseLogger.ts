@@ -21,7 +21,6 @@ export class BaseLogger {
         return builder.toString();
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     private detailString(key: string, detail: unknown): string {
         const jsonString = inspect(detail, {
             compact: true,

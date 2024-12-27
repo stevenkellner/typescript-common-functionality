@@ -1,5 +1,6 @@
 import { v4 as generateUUID } from 'uuid';
 import type { Flattable } from './Flattable';
+import type { ITypeBuilder } from '../typeBuilder';
 
 export class Guid implements Flattable<string> {
 
@@ -20,5 +21,16 @@ export class Guid implements Flattable<string> {
 
     public get flatten(): string {
         return this.guidString;
+    }
+}
+
+// istanbul ignore next
+export namespace Guid {
+
+    export class TypeBuilder implements ITypeBuilder<string, Guid> {
+
+        public build(value: string): Guid {
+            return Guid.from(value);
+        }
     }
 }
