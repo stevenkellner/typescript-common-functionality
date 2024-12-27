@@ -7,7 +7,7 @@ export class Logger {
 
     public constructor(
         private readonly logger: ILogger,
-        private readonly verbose: boolean
+        private readonly verbose: boolean = false
     ) {}
 
     public static setup(logger: ILogger, verbose: boolean = false): void {

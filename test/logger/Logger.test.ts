@@ -4,85 +4,86 @@ import { mock, instance, verify, resetCalls, anything } from 'ts-mockito';
 
 describe('Logger', () => {
     let mockedLogger: ILogger;
+    let logger: Logger;
 
     function testLoggerWithVerboseMode(verbose: boolean): void {
         it('should log a message with default level', () => {
-            Logger.instance.log('testFunction', 'testDescription', { key: 'value' });
+            logger.log('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('info', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with debug level', () => {
-            Logger.instance.debug('testFunction', 'testDescription', { key: 'value' });
+            logger.debug('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('debug', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with info level', () => {
-            Logger.instance.info('testFunction', 'testDescription', { key: 'value' });
+            logger.info('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('info', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with notice level', () => {
-            Logger.instance.notice('testFunction', 'testDescription', { key: 'value' });
+            logger.notice('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('notice', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with warning level', () => {
-            Logger.instance.warning('testFunction', 'testDescription', { key: 'value' });
+            logger.warning('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('warning', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with error level', () => {
-            Logger.instance.error('testFunction', 'testDescription', { key: 'value' });
+            logger.error('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('error', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with critical level', () => {
-            Logger.instance.critical('testFunction', 'testDescription', { key: 'value' });
+            logger.critical('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('critical', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with alert level', () => {
-            Logger.instance.alert('testFunction', 'testDescription', { key: 'value' });
+            logger.alert('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('alert', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message with emergency level', () => {
-            Logger.instance.emergency('testFunction', 'testDescription', { key: 'value' });
+            logger.emergency('testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('emergency', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
         it('should log a message without description', () => {
-            Logger.instance.log('testFunction', { key: 'value' });
+            logger.log('testFunction', { key: 'value' });
             verify(mockedLogger.log('info', verbose, 'testFunction', null, anything())).once();
         });
 
         it('should log a message without details', () => {
-            Logger.instance.log('testFunction', 'testDescription');
+            logger.log('testFunction', 'testDescription');
             verify(mockedLogger.log('info', verbose, 'testFunction', 'testDescription', null)).once();
         });
 
         it('should log a message with only function name', () => {
-            Logger.instance.log('testFunction');
+            logger.log('testFunction');
             verify(mockedLogger.log('info', verbose, 'testFunction', null, null)).once();
         });
 
         it('should log a message with level and function name', () => {
-            Logger.instance.log('debug', 'testFunction');
+            logger.log('debug', 'testFunction');
             verify(mockedLogger.log('debug', verbose, 'testFunction', null, null)).once();
         });
 
         it('should log a message with level, function name, and description', () => {
-            Logger.instance.log('debug', 'testFunction', 'testDescription');
+            logger.log('debug', 'testFunction', 'testDescription');
             verify(mockedLogger.log('debug', verbose, 'testFunction', 'testDescription', null)).once();
         });
 
         it('should log a message with level, function name, and details', () => {
-            Logger.instance.log('debug', 'testFunction', { key: 'value' });
+            logger.log('debug', 'testFunction', { key: 'value' });
             verify(mockedLogger.log('debug', verbose, 'testFunction', null, anything())).once();
         });
 
         it('should log a message with level, function name, description, and details', () => {
-            Logger.instance.log('debug', 'testFunction', 'testDescription', { key: 'value' });
+            logger.log('debug', 'testFunction', 'testDescription', { key: 'value' });
             verify(mockedLogger.log('debug', verbose, 'testFunction', 'testDescription', anything())).once();
         });
     }
@@ -91,7 +92,7 @@ describe('Logger', () => {
 
         beforeEach(() => {
             mockedLogger = mock<ILogger>();
-            Logger.setup(instance(mockedLogger), true);
+            logger = new Logger(instance(mockedLogger), true);
         });
 
         afterEach(() => {
@@ -105,7 +106,37 @@ describe('Logger', () => {
 
         beforeEach(() => {
             mockedLogger = mock<ILogger>();
+            logger = new Logger(instance(mockedLogger));
+        });
+
+        afterEach(() => {
+            resetCalls(mockedLogger);
+        });
+
+        testLoggerWithVerboseMode(false);
+    });
+
+    describe('verbose mode enabled with setup', () => {
+
+        beforeEach(() => {
+            mockedLogger = mock<ILogger>();
+            Logger.setup(instance(mockedLogger), true);
+            logger = Logger.instance;
+        });
+
+        afterEach(() => {
+            resetCalls(mockedLogger);
+        });
+
+        testLoggerWithVerboseMode(true);
+    });
+
+    describe('verbose mode disabled with setup', () => {
+
+        beforeEach(() => {
+            mockedLogger = mock<ILogger>();
             Logger.setup(instance(mockedLogger));
+            logger = Logger.instance;
         });
 
         afterEach(() => {
