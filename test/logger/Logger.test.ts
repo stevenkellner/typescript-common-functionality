@@ -26,6 +26,31 @@ describe('Logger', () => {
             verify(mockedLogger.log('notice', verbose, 'testFunction', 'testDescription', anything())).once();
         });
 
+        it('should log a message with warning level', () => {
+            Logger.instance.warning('testFunction', 'testDescription', { key: 'value' });
+            verify(mockedLogger.log('warning', verbose, 'testFunction', 'testDescription', anything())).once();
+        });
+
+        it('should log a message with error level', () => {
+            Logger.instance.error('testFunction', 'testDescription', { key: 'value' });
+            verify(mockedLogger.log('error', verbose, 'testFunction', 'testDescription', anything())).once();
+        });
+
+        it('should log a message with critical level', () => {
+            Logger.instance.critical('testFunction', 'testDescription', { key: 'value' });
+            verify(mockedLogger.log('critical', verbose, 'testFunction', 'testDescription', anything())).once();
+        });
+
+        it('should log a message with alert level', () => {
+            Logger.instance.alert('testFunction', 'testDescription', { key: 'value' });
+            verify(mockedLogger.log('alert', verbose, 'testFunction', 'testDescription', anything())).once();
+        });
+
+        it('should log a message with emergency level', () => {
+            Logger.instance.emergency('testFunction', 'testDescription', { key: 'value' });
+            verify(mockedLogger.log('emergency', verbose, 'testFunction', 'testDescription', anything())).once();
+        });
+
         it('should log a message without description', () => {
             Logger.instance.log('testFunction', { key: 'value' });
             verify(mockedLogger.log('info', verbose, 'testFunction', null, anything())).once();

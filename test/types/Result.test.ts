@@ -1,5 +1,6 @@
 import { expect } from '@assertive-ts/core';
 import { Result } from '../../src/types/Result';
+import { Guid } from '../../src';
 
 describe('Result', () => {
     describe('Success', () => {
@@ -22,6 +23,12 @@ describe('Result', () => {
         it('should get value or error', () => {
             const result = Result.success(42);
             expect(result.valueOrError).toBeEqual(42);
+        });
+
+        it('should get flatten value', () => {
+            const guid = Guid.generate();
+            const result = Result.success(guid);
+            expect(result.flatten).toBeEqual(Result.success(guid.guidString));
         });
     });
 
@@ -52,6 +59,12 @@ describe('Result', () => {
             const error = new Error('error');
             const result = Result.failure(error);
             expect(result.valueOrError).toBeEqual(error);
+        });
+
+        it('should get flatten error', () => {
+            const guid = Guid.generate();
+            const result = Result.failure(guid);
+            expect(result.flatten).toBeEqual(Result.failure(guid.guidString));
         });
     });
 
