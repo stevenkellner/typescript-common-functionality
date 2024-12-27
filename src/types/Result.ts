@@ -105,7 +105,7 @@ export namespace Result {
         return result.state === 'failure';
     }
 
-    export function from<T, E>(flatten: Flatten<Result<T, E>>): Result<T, E>;
+    export function from<T, E>(flatten: Flatten<Result<T, E>>): Result<Flatten<T>, Flatten<E>>;
     export function from<T = unknown, E = unknown>(value: unknown): Result<T, E>;
     export function from<T = unknown, E = unknown>(value: unknown): Result<T, E> {
         if (typeof value !== 'object' || value === null)
