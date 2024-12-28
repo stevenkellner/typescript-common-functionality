@@ -53,14 +53,14 @@ describe('Tagged', () => {
 describe('Tagged.TypeBuilder', () => {
 
     let mockedValueBuilder: ITypeBuilder<number, number>;
-    let builder: Tagged.TypeBuilder<number, Tagged<number, 'test-tag'>>;
+    let builder: Tagged.TypeBuilder<number, 'test-tag'>;
 
     before(() => {
         mockedValueBuilder = mock<ITypeBuilder<number, number>>();
         when(mockedValueBuilder.build(anything()))
             .thenCall((value: number) => value + 1);
         const valueBuilder = instance(mockedValueBuilder);
-        builder = new Tagged.TypeBuilder('test-tag', valueBuilder);
+        builder = Tagged.builder('test-tag', valueBuilder);
     });
 
     it('should build a Tagged instance with the given value and tag', () => {

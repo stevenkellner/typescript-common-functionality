@@ -74,56 +74,16 @@ describe('Result', () => {
         });
     });
 
-    describe('from', () => {
-        it('should create a success result from a valid object', () => {
-            const result = Result.from({
-                state: 'success',
-                value: 42
-            });
-            expect(Result.isSuccess(result)).toBeTrue();
-            expect(result.get()).toBeEqual(42);
-        });
-
-        it('should create a failure result from a valid object', () => {
-            const result = Result.from({
-                state: 'failure',
-                error: new Error('error')
-            });
-            expect(Result.isFailure(result)).toBeTrue();
-            expect(() => result.get())
-                .toThrowError(Error)
-                .toHaveMessage('error');
-        });
-
-        it('should throw an error for an invalid object', () => {
-            expect(() => Result.from(undefined))
-                .toThrowError(Error)
-                .toHaveMessage('Expected an object');
-            expect(() => Result.from({}))
-                .toThrowError(Error)
-                .toHaveMessage('Expected a state property');
-            expect(() => Result.from({ state: 'unknown' }))
-                .toThrowError(Error)
-                .toHaveMessage('Expected a state property with value success or failure');
-            expect(() => Result.from({ state: 'success' }))
-                .toThrowError(Error)
-                .toHaveMessage('Expected a value property');
-            expect(() => Result.from({ state: 'failure' }))
-                .toThrowError(Error)
-                .toHaveMessage('Expected an error property');
-        });
-    });
-
     describe('TypeBuilder', () => {
         it('should build a success result', () => {
-            const typeBuilder = new Result.TypeBuilder(new TypeBuilder((value: number) => value + 1), new TypeBuilder((error: string) => error.toUpperCase()));
-            const result = typeBuilder.build(Result.success(41));
+            const typeBuilder = Result.builder<number, string>(new TypeBuilder(value => value + 1), new TypeBuilder(error => error.toUpperCase()));
+            const result = typeBuilder.build(Result.success(41).flatten);
             expect(result).toBeEqual(Result.success(42));
         });
 
         it('should build a failure result', () => {
-            const typeBuilder = new Result.TypeBuilder(new TypeBuilder((value: number) => value + 1), new TypeBuilder((error: string) => error.toUpperCase()));
-            const result = typeBuilder.build(Result.failure('error'));
+            const typeBuilder = Result.builder<number, string>(new TypeBuilder(value => value + 1), new TypeBuilder(error => error.toUpperCase()));
+            const result = typeBuilder.build(Result.failure('error').flatten);
             expect(result).toBeEqual(Result.failure('ERROR'));
         });
     });

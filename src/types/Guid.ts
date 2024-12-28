@@ -2,7 +2,7 @@ import { v4 as generateUUID } from 'uuid';
 import type { Flattable } from './Flattable';
 import type { ITypeBuilder } from '../typeBuilder';
 
-export class Guid implements Flattable<string> {
+export class Guid implements Flattable<Guid.Flatten> {
 
     public constructor(
         public readonly guidString: string
@@ -19,7 +19,7 @@ export class Guid implements Flattable<string> {
         return new Guid(generateUUID());
     }
 
-    public get flatten(): string {
+    public get flatten(): Guid.Flatten {
         return this.guidString;
     }
 }
@@ -27,10 +27,14 @@ export class Guid implements Flattable<string> {
 // istanbul ignore next
 export namespace Guid {
 
-    export class TypeBuilder implements ITypeBuilder<string, Guid> {
+    export type Flatten = string;
 
-        public build(value: string): Guid {
+    export class TypeBuilder implements ITypeBuilder<Flatten, Guid> {
+
+        public build(value: Flatten): Guid {
             return Guid.from(value);
         }
     }
+
+    export const builder = new TypeBuilder();
 }

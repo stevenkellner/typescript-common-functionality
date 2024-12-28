@@ -1,12 +1,12 @@
 import { expect } from '@assertive-ts/core';
-import { Dictionary, type ITypeBuilder } from '../../src';
+import { Dictionary, ValueTypeBuilder, type ITypeBuilder } from '../../src';
 import { anything, instance, mock, resetCalls, verify, when } from 'ts-mockito';
 
 describe('Dictionary', () => {
     let dictionary: Dictionary<string, number>;
 
     beforeEach(() => {
-        dictionary = new Dictionary<string, number>();
+        dictionary = new Dictionary<string, number>(new ValueTypeBuilder());
     });
 
     describe('get', () => {
@@ -90,14 +90,14 @@ describe('Dictionary', () => {
 describe('Dictionary.TypeBuilder', () => {
 
     let mockedTypeBuilder: ITypeBuilder<number, number>;
-    let builder: Dictionary.TypeBuilder<number, string, number>;
+    let builder: Dictionary.TypeBuilder<string, number>;
 
     before(() => {
         mockedTypeBuilder = mock<ITypeBuilder<number, number>>();
         when(mockedTypeBuilder.build(anything()))
             .thenCall((value: number) => value + 1);
         const typeBuilder = instance(mockedTypeBuilder);
-        builder = new Dictionary.TypeBuilder(typeBuilder);
+        builder = Dictionary.builder(new ValueTypeBuilder(), typeBuilder);
     });
 
     afterEach(() => {

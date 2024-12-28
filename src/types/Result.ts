@@ -1,28 +1,16 @@
 import type { ITypeBuilder } from '../typeBuilder';
-import { Flattable, type Flatten } from './Flattable';
+import { Flattable } from './Flattable';
 
 export type Result<T, E> = Result.Success<T> | Result.Failure<E>;
 
 // istanbul ignore next
 export namespace Result {
 
-    export type Value<R> = R extends Result<infer T, unknown> ? T : never;
+    export type Value<R extends Result<any, any>> = R extends Result<infer T, unknown> ? T : never;
 
-    export type Error<R> = R extends Result<unknown, infer E> ? E : never;
+    export type Error<R extends Result<any, any>> = R extends Result<unknown, infer E> ? E : never;
 
-    export type FlattenSuccess<T> = {
-        state: 'success';
-        value: Flatten<T>;
-    };
-
-    export type FlattenFailure<E> = {
-        state: 'failure';
-        error: Flatten<E>;
-    };
-
-    export class Success<T> implements Flattable<FlattenSuccess<T>> {
-
-        public readonly state = 'success';
+    export class Success<T> implements Flattable<Success.Flatten<T>> {
 
         public constructor(
             public readonly value: T
@@ -46,7 +34,7 @@ export namespace Result {
             return this;
         }
 
-        public get flatten(): FlattenSuccess<T> {
+        public get flatten(): Success.Flatten<T> {
             return {
                 state: 'success',
                 value: Flattable.flatten(this.value)
@@ -54,9 +42,31 @@ export namespace Result {
         }
     }
 
-    export class Failure<E> implements Flattable<FlattenFailure<E>> {
+    // istanbul ignore next
+    export namespace Success {
 
-        public readonly state = 'failure';
+        export type Flatten<T> = {
+            state: 'success';
+            value: Flattable.Flatten<T>;
+        };
+
+        export class TypeBuilder<T> implements ITypeBuilder<Flatten<T>, Success<T>> {
+
+            public constructor(
+                private readonly builder: ITypeBuilder<Flattable.Flatten<T>, T>
+            ) {}
+
+            public build(value: Flatten<T>): Success<T> {
+                return new Success(this.builder.build(value.value));
+            }
+        }
+
+        export function builder<T>(builder: ITypeBuilder<Flattable.Flatten<T>, T>): TypeBuilder<T> {
+            return new TypeBuilder(builder);
+        }
+    }
+
+    export class Failure<E> implements Flattable<Failure.Flatten<E>> {
 
         public constructor(
             public readonly error: E
@@ -81,12 +91,59 @@ export namespace Result {
             return new Result.Failure<E2>(mapper(this.error));
         }
 
-        public get flatten(): FlattenFailure<E> {
+        public get flatten(): Failure.Flatten<E> {
             return {
                 state: 'failure',
                 error: Flattable.flatten(this.error)
             };
         }
+    }
+
+    // istanbul ignore next
+    export namespace Failure {
+
+        export type Flatten<E> = {
+            state: 'failure';
+            error: Flattable.Flatten<E>;
+        };
+
+        export class TypeBuilder<T> implements ITypeBuilder<Flatten<T>, Failure<T>> {
+
+            public constructor(
+                private readonly builder: ITypeBuilder<Flattable.Flatten<T>, T>
+            ) {}
+
+            public build(value: Flatten<T>): Failure<T> {
+                return new Failure(this.builder.build(value.error));
+            }
+        }
+
+        export function builder<T>(builder: ITypeBuilder<Flattable.Flatten<T>, T>): TypeBuilder<T> {
+            return new TypeBuilder(builder);
+        }
+    }
+
+    export type Flatten<T, E> = Success.Flatten<T> | Failure.Flatten<E>;
+
+    export class TypeBuilder<T, E> implements ITypeBuilder<Flatten<T, E>, Result<T, E>> {
+
+        public constructor(
+            private readonly successBuilder: ITypeBuilder<Success.Flatten<T>, Success<T>>,
+            private readonly failureBuilder: ITypeBuilder<Failure.Flatten<E>, Failure<E>>
+        ) {}
+
+        public build(value: Flatten<T, E>): Result<T, E> {
+            if (value.state === 'success')
+                return this.successBuilder.build(value);
+            return this.failureBuilder.build(value);
+        }
+    }
+
+    export function builder<T, E>(
+        successBuilder: ITypeBuilder<Flattable.Flatten<T>, T>,
+        failureBuilder: ITypeBuilder<Flattable.Flatten<E>, E>
+    ): TypeBuilder<T, E> {
+        return new TypeBuilder(Success.builder(successBuilder), Failure.builder(failureBuilder));
     }
 
     export function success<T>(value: T): Result<T, never>;
@@ -100,44 +157,10 @@ export namespace Result {
     }
 
     export function isSuccess<T, E>(result: Result<T, E>): result is Result.Success<T> {
-        return result.state === 'success';
+        return result instanceof Result.Success;
     }
 
     export function isFailure<T, E>(result: Result<T, E>): result is Result.Failure<E> {
-        return result.state === 'failure';
-    }
-
-    export function from<T, E>(flatten: Flatten<Result<T, E>>): Result<Flatten<T>, Flatten<E>>;
-    export function from<T = unknown, E = unknown>(value: unknown): Result<T, E>;
-    export function from<T = unknown, E = unknown>(value: unknown): Result<T, E> {
-        if (typeof value !== 'object' || value === null)
-            throw new Error('Expected an object');
-        if (!('state' in value))
-            throw new Error('Expected a state property');
-        if (value.state === 'success') {
-            if (!('value' in value))
-                throw new Error('Expected a value property');
-            return success(value.value as T);
-        }
-        if (value.state === 'failure') {
-            if (!('error' in value))
-                throw new Error('Expected an error property');
-            return failure(value.error as E);
-        }
-        throw new Error('Expected a state property with value success or failure');
-    }
-
-    export class TypeBuilder<RawT, RawE, T, E> implements ITypeBuilder<Result<RawT, RawE>, Result<T, E>> {
-
-        public constructor(
-            private readonly valueBuilder: ITypeBuilder<RawT, T>,
-            private readonly errorBuilder: ITypeBuilder<RawE, E>
-        ) {}
-
-        public build(value: Result<RawT, RawE>): Result<T, E> {
-            if (Result.isSuccess(value))
-                return new Result.Success(this.valueBuilder.build(value.value));
-            return new Result.Failure(this.errorBuilder.build(value.error));
-        }
+        return result instanceof Result.Failure;
     }
 }

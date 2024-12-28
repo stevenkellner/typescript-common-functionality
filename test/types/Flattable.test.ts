@@ -55,10 +55,9 @@ describe('Flattable', () => {
             });
         });
 
-        it('should throw an error for unexpected values', () => {
-            expect(() => Flattable.flatten(Symbol('symbol')))
-                .toThrowError(Error)
-                .toHaveMessage('Unexpected value');
+        it('should return same object if not flattable', () => {
+            const value = Symbol('symbol');
+            expect(Flattable.flatten(value)).toBeEqual(value);
         });
     });
 });

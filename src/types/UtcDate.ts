@@ -9,7 +9,7 @@ type UtcDateComponents = {
     minute: number;
 };
 
-export class UtcDate implements Flattable<string> {
+export class UtcDate implements Flattable<UtcDate.Flatten> {
 
     public constructor(
         public readonly year: number,
@@ -106,7 +106,7 @@ export class UtcDate implements Flattable<string> {
         return 'equal';
     }
 
-    public get flatten(): string {
+    public get flatten(): UtcDate.Flatten {
         return this.encoded;
     }
 }
@@ -114,10 +114,14 @@ export class UtcDate implements Flattable<string> {
 // istanbul ignore next
 export namespace UtcDate {
 
-    export class TypeBuilder implements ITypeBuilder<string, UtcDate> {
+    export type Flatten = string;
 
-        public build(value: string): UtcDate {
+    export class TypeBuilder implements ITypeBuilder<Flatten, UtcDate> {
+
+        public build(value: Flatten): UtcDate {
             return UtcDate.decode(value);
         }
     }
+
+    export const builder = new TypeBuilder();
 }

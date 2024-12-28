@@ -1,62 +1,73 @@
 import type { ITypeBuilder } from '../typeBuilder';
 import { entries, keys, mapRecord, values } from '../utils';
-import { Flattable, type Flatten } from './Flattable';
+import { Flattable } from './Flattable';
 
-type Entry<T> = {
-    key: string;
+type Entry<Key extends string | Flattable<string>, T> = {
+    key: Key;
     value: T;
 };
 
-export class Dictionary<Key, T> implements Flattable<Record<string, T>> {
+export class Dictionary<Key extends string | Flattable<string>, T> implements Flattable<Dictionary.Flatten<T>> {
 
     public constructor(
+        private readonly keyBuilder: ITypeBuilder<string, Key>,
         private readonly dictionary: Record<string, T> = {}
     ) {}
 
-    public get(key: Flatten<Key> extends string ? Key : never): T {
-        return this.dictionary[Flattable.flatten(key) as string];
+    public get(key: Key): T {
+        return this.dictionary[Flattable.flatten(key)];
     }
 
-    public set(key: Flatten<Key> extends string ? Key : never, value: T): void {
-        this.dictionary[Flattable.flatten(key) as string] = value;
+    public set(key: Key, value: T): void {
+        this.dictionary[Flattable.flatten(key)] = value;
     }
 
-    public has(key: Flatten<Key> extends string ? Key : never): boolean {
-        return Flattable.flatten(key) as string in this.dictionary;
+    public has(key: Key): boolean {
+        return Flattable.flatten(key) in this.dictionary;
     }
 
-    public get keys(): string[] {
-        return keys(this.dictionary);
+    public get keys(): Key[] {
+        return keys(this.dictionary).map(key => this.keyBuilder.build(key));
     }
 
     public get values(): T[] {
         return values(this.dictionary);
     }
 
-    public get entries(): Entry<T>[] {
-        return entries(this.dictionary);
+    public get entries(): Entry<Key, T>[] {
+        return entries(this.dictionary).map(({ key, value }) => ({
+            key: this.keyBuilder.build(key),
+            value: value
+        }));
     }
 
-    public map<U>(callbackFn: (value: T, key: string) => U): Dictionary<Key, U> {
-        return new Dictionary(mapRecord(this.dictionary, callbackFn));
+    public map<U>(callbackFn: (value: T, key: Key) => U): Dictionary<Key, U> {
+        return new Dictionary(this.keyBuilder, mapRecord(this.dictionary, (value, key) => callbackFn(value, this.keyBuilder.build(key))));
     }
 
-    public get flatten(): Record<string, T> {
-        return this.dictionary;
+    public get flatten(): Dictionary.Flatten<T> {
+        return mapRecord(this.dictionary, value => Flattable.flatten(value));
     }
 }
 
 // istanbul ignore next
 export namespace Dictionary {
 
-    export class TypeBuilder<Raw, Key, T> implements ITypeBuilder<Record<string, Raw>, Dictionary<Key, T>> {
+    export type Flatten<T> = Record<string, Flattable.Flatten<T>>;
+
+    export class TypeBuilder<Key extends string | Flattable<string>, T> implements ITypeBuilder<Dictionary.Flatten<T>, Dictionary<Key, T>> {
 
         public constructor(
-            private readonly builder: ITypeBuilder<Raw, T>
+            private readonly keyBuilder: ITypeBuilder<string, Key>,
+            private readonly builder: ITypeBuilder<Flattable.Flatten<T>, T>
         ) {}
 
-        public build(value: Record<string, Raw>): Dictionary<Key, T> {
-            return new Dictionary(mapRecord(value, value => this.builder.build(value)));
+        public build(value: Dictionary.Flatten<T>): Dictionary<Key, T> {
+            return new Dictionary(this.keyBuilder, mapRecord(value, value => this.builder.build(value)));
         }
+    }
+
+    export function builder<Key extends string | Flattable<string>, T>(keyBuilder: ITypeBuilder<string, Key>, builder: ITypeBuilder<Flattable.Flatten<T>, T>): TypeBuilder<Key, T> {
+        return new TypeBuilder(keyBuilder, builder);
     }
 }
