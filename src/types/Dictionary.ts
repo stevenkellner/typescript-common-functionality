@@ -18,6 +18,12 @@ export class Dictionary<Key extends string | Flattable<string>, T> implements Fl
         return this.dictionary[Flattable.flatten(key)];
     }
 
+    public getOptional(key: Key): T | null {
+        if (!this.has(key))
+            return null;
+        return this.get(key);
+    }
+
     public set(key: Key, value: T): void {
         this.dictionary[Flattable.flatten(key)] = value;
     }
