@@ -47,6 +47,10 @@ export class Dictionary<Key extends string | Flattable<string>, T> implements Fl
         }));
     }
 
+    public get isEmpty(): boolean {
+        return this.values.length === 0;
+    }
+
     public map<U>(callbackFn: (value: T, key: Key) => U): Dictionary<Key, U> {
         return new Dictionary(this.keyBuilder, mapRecord(this.dictionary, (value, key) => callbackFn(value, this.keyBuilder.build(key))));
     }

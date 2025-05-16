@@ -65,6 +65,17 @@ describe('Dictionary', () => {
         });
     });
 
+    describe('isEmpty', () => {
+        it('should return true if the dictionary is empty', () => {
+            expect(dictionary.isEmpty).toBeTrue();
+        });
+
+        it('should return false if the dictionary is not empty', () => {
+            dictionary.set('a', 1);
+            expect(dictionary.isEmpty).toBeFalse();
+        });
+    });
+
     describe('map', () => {
         it('should map the dictionary values using the callback function', () => {
             dictionary.set('a', 1);
