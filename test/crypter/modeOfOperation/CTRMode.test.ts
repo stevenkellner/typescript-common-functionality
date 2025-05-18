@@ -2,7 +2,7 @@ import { expect } from '@assertive-ts/core';
 import { CTRMode } from '../../../src/crypter/modeOfOperation/CTRMode';
 import { AES } from '../../../src/crypter/AES';
 import { PKCS7Padding } from '../../../src';
-import { randomBytes } from 'crypto';
+import randomBytes from 'randombytes';
 import { xor } from '../../../src/utils/xor';
 import { Block } from 'aes-ts';
 

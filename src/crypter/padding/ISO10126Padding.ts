@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto';
+import randomBytes from 'randombytes';
 import type { IPadding } from './IPadding';
 
 export class ISO10126Padding implements IPadding {

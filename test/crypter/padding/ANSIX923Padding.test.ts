@@ -1,6 +1,6 @@
 import { expect } from '@assertive-ts/core';
 import { ASNIX923Padding } from '../../../src/crypter/padding/ANSIX923Padding';
-import { randomBytes } from 'crypto';
+import randomBytes from 'randombytes';
 
 describe('ASNIX923Padding', () => {
     let padding: ASNIX923Padding;

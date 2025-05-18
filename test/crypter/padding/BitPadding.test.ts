@@ -1,6 +1,6 @@
 import { expect } from '@assertive-ts/core';
 import { BitPadding } from '../../../src/crypter/padding/BitPadding';
-import { randomBytes } from 'crypto';
+import randomBytes from 'randombytes';
 
 describe('BitPadding', () => {
     let padding: BitPadding;

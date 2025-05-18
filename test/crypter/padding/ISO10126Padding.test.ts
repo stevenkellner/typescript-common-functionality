@@ -1,6 +1,6 @@
 import { expect } from '@assertive-ts/core';
 import { ISO10126Padding } from '../../../src/crypter/padding/ISO10126Padding';
-import { randomBytes } from 'crypto';
+import randomBytes from 'randombytes';
 
 describe('ISO10126Padding', () => {
     let padding: ISO10126Padding;

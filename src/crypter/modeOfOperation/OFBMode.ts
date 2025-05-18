@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto';
+import randomBytes from 'randombytes';
 import type { IModeOfOperation, IDecryptionModeOfOperation, IEncryptionModeOfOperation } from './IModeOfOperation';
 import { xor } from '../../utils/xor';
 
