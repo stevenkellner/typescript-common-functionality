@@ -1,6 +1,6 @@
-import randomBytes from 'randombytes';
 import type { IModeOfOperation, IDecryptionModeOfOperation, IEncryptionModeOfOperation } from './IModeOfOperation';
 import { xor } from '../../utils/xor';
+import { randomBytes } from '../../utils';
 
 export class OFBMode implements IModeOfOperation {
 

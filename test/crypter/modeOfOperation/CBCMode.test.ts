@@ -2,9 +2,9 @@ import { expect } from '@assertive-ts/core';
 import { CBCMode } from '../../../src/crypter/modeOfOperation/CBCMode';
 import { AES } from '../../../src/crypter/AES';
 import { PKCS7Padding } from '../../../src';
-import randomBytes from 'randombytes';
 import { Block } from 'aes-ts';
 import { xor } from '../../../src/utils/xor';
+import { randomBytes } from '../../../src/utils';
 
 describe('CBCMode', () => {
     const key = new Uint8Array([119, 54, 103, 107, 122, 110, 105, 85, 112, 120, 119, 76, 65, 75, 114, 88]);

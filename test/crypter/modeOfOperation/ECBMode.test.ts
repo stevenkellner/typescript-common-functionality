@@ -2,7 +2,7 @@ import { expect } from '@assertive-ts/core';
 import { ECBMode } from '../../../src/crypter/modeOfOperation/ECBMode';
 import { AES } from '../../../src/crypter/AES';
 import { PKCS7Padding } from '../../../src';
-import randomBytes from 'randombytes';
+import { randomBytes } from '../../../src/utils';
 import { Block } from 'aes-ts';
 
 describe('ECBMode', () => {

@@ -1,6 +1,6 @@
 import { expect } from '@assertive-ts/core';
 import { PKCS7Padding } from '../../../src/crypter/padding/PKCS7Padding';
-import randomBytes from 'randombytes';
+import { randomBytes } from '../../../src/utils';
 
 describe('PKCS7Padding', () => {
     let padding: PKCS7Padding;

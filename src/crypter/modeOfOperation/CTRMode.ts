@@ -1,6 +1,6 @@
-import randomBytes from 'randombytes';
 import type { IDecryptionModeOfOperation, IEncryptionModeOfOperation, IModeOfOperation } from './IModeOfOperation';
 import { xor } from '../../utils/xor';
+import { randomBytes } from '../../utils';
 
 export class CTRMode implements IModeOfOperation {
 
