@@ -1,4 +1,5 @@
 import { expect } from '@assertive-ts/core';
+import { Buffer } from 'buffer';
 import { BytesCoder } from '../../src/bytesCoder/BytesCoder';
 
 describe('BytesCoder', () => {

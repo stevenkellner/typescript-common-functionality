@@ -1,4 +1,5 @@
 import { expect } from '@assertive-ts/core';
+import { Buffer } from 'buffer';
 import { HexBytesCoder } from '../../src/bytesCoder/HexBytesCoder';
 
 describe('HexBytesCoder', () => {

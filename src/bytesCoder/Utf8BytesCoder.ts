@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer';
 import type { IBytesCoder } from './IBytesCoder';
 
 export class Utf8BytesCoder implements IBytesCoder<string> {

@@ -1,3 +1,4 @@
+import { Buffer } from 'buffer';
 import type { IBytesCoder } from './IBytesCoder';
 
 export class Base64BytesCoder implements IBytesCoder<string> {
