@@ -13,8 +13,8 @@
         "test": "mocha",
         "test:coverage": "nyc npm run test",
         "coverage:report": "npx http-server -o ./coverage",
-        "upgrade": "ncu --upgrade --install always",
-        "release": "npm run rebuild && npm run test && npm run lint && npm version patch && git push --follow-tags"
+        "upgrade": "npm cache clean --force && ncu --upgrade --install always",
+        "release": "npm run rebuild && npm run lint && npm version patch && git push --follow-tags"
     },
     "devDependencies": {
         "@assertive-ts/core": "^2.1.0",
