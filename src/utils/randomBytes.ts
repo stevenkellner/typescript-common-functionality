@@ -8,4 +8,4 @@ export const randomBytes: (n: number) => Uint8Array = (typeof self !== 'undefine
             return a;
         }
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    : require('crypto-browserify').randomBytes;
+    : require('randombytes');
