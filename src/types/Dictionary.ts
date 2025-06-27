@@ -28,6 +28,10 @@ export class Dictionary<Key extends string | Flattable<string>, T> implements Fl
         this.dictionary[Flattable.flatten(key)] = value;
     }
 
+    public delete(key: Key): void {
+        delete this.dictionary[Flattable.flatten(key)];
+    }
+
     public has(key: Key): boolean {
         return Flattable.flatten(key) in this.dictionary;
     }
