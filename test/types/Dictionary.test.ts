@@ -27,6 +27,14 @@ describe('Dictionary', () => {
         });
     });
 
+    describe('delete', () => {
+        it('should delete the key from the dictionary', () => {
+            dictionary.set('a', 1);
+            dictionary.delete('a');
+            expect(dictionary.getOptional('a')).toBeNull();
+        });
+    });
+
     describe('has', () => {
         it('should return true if the key exists', () => {
             dictionary.set('a', 1);

@@ -59,6 +59,7 @@ export default [
             '@typescript-eslint/no-unsafe-type-assertion': 'off',
             'quote-props': ['error', 'consistent-as-needed'],
             'object-property-newline': 'off',
+            '@typescript-eslint/no-dynamic-delete': 'off',
             'sort-keys': 'off',
             'one-var': ['error', 'never'],
             'no-negated-condition': 'off',
