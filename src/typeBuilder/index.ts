@@ -5,3 +5,4 @@ export * from './ArrayTypeBuilder';
 export * from './TypeBuilder';
 export * from './OptionalTypeBuilder';
 export * from './IntersectionTypeBuilder';
+export * from './UnionTypeBuilder';
